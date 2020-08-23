@@ -1,0 +1,3 @@
+[submodule "software/lib/SharedVirtualRegisters"]
+	path = software/lib/SharedVirtualRegisters
+	url = git@github.com:an-dr/SharedVirtualRegisters.git
