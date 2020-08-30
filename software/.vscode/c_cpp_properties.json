@@ -13,8 +13,7 @@
                 "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 "C:/Users/dongr/.platformio/lib/ArduinoLog",
                 "C:/Users/dongr/.platformio/packages/framework-arduino-avr/cores/arduino",
-                "C:/Users/dongr/.platformio/packages/framework-arduino-avr/variants/sparkfun_promicro",
-                "c:/Users/dongr/Code/Zakhar/zakhar_sensors/software/lib/arduino_i2c_with_regs",
+                "C:/Users/dongr/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
                 "C:/Users/dongr/.platformio/lib/FreeRTOS_ID507/src",
                 "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/HID/src",
@@ -33,8 +32,7 @@
                     "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     "C:/Users/dongr/.platformio/lib/ArduinoLog",
                     "C:/Users/dongr/.platformio/packages/framework-arduino-avr/cores/arduino",
-                    "C:/Users/dongr/.platformio/packages/framework-arduino-avr/variants/sparkfun_promicro",
-                    "c:/Users/dongr/Code/Zakhar/zakhar_sensors/software/lib/arduino_i2c_with_regs",
+                    "C:/Users/dongr/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
                     "C:/Users/dongr/.platformio/lib/FreeRTOS_ID507/src",
                     "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "C:/Users/dongr/.platformio/packages/framework-arduino-avr/libraries/HID/src",
@@ -46,15 +44,11 @@
             },
             "defines": [
                 "PLATFORMIO=40304",
-                "ARDUINO_AVR_PROMICRO16",
+                "ARDUINO_AVR_NANO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",
                 "ARDUINO=10808",
-                "USB_VID=0x1B4F",
-                "USB_PID=0x9206",
-                "USB_PRODUCT=\"SparkFun Pro Micro\"",
-                "USB_MANUFACTURER=\"SparkFun\"",
-                "__AVR_ATmega32U4__",
+                "__AVR_ATmega328P__",
                 ""
             ],
             "intelliSenseMode": "clang-x64",
@@ -62,7 +56,7 @@
             "cppStandard": "c++11",
             "compilerPath": "C:/Users/dongr/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
             "compilerArgs": [
-                "-mmcu=atmega32u4",
+                "-mmcu=atmega328p",
                 ""
             ]
         }
