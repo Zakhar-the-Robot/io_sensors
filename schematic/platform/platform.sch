@@ -1,0 +1,220 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Sensors"
+Date ""
+Rev "1.0.0"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A1
+U 1 1 5F4BDF8A
+P 4300 3500
+F 0 "A1" H 4300 2411 50  0000 C CNN
+F 1 "Arduino_Nano_v3.x" H 4900 2500 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 4300 3500 50  0001 C CIN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 4300 3500 50  0001 C CNN
+	1    4300 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J1
+U 1 1 5F4C1696
+P 6850 2150
+F 0 "J1" H 6500 2550 50  0000 L CNN
+F 1 "PLATFORM_CONNECTOR" H 6500 2650 50  0000 L CNN
+F 2 "" H 6850 2150 50  0001 C CNN
+F 3 "~" H 6850 2150 50  0001 C CNN
+	1    6850 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L HC-SR04:HC-SR04 U1
+U 1 1 5F4C51F8
+P 6850 4300
+F 0 "U1" H 7280 4296 50  0000 L CNN
+F 1 "HC-SR04" H 7280 4205 50  0000 L CNN
+F 2 "XCVR_HC-SR04" H 6850 4300 50  0001 L BNN
+F 3 "Osepp" H 6850 4300 50  0001 L BNN
+	1    6850 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Male J2
+U 1 1 5F4C5D48
+P 6850 3700
+F 0 "J2" H 7100 3950 50  0000 R CNN
+F 1 "KY-018 PHOTORESISTOR MODULE" H 7100 4050 50  0000 R CNN
+F 2 "" H 6850 3700 50  0001 C CNN
+F 3 "~" H 6850 3700 50  0001 C CNN
+	1    6850 3700
+	-1   0    0    -1  
+$EndComp
+Text Notes 6900 1850 0    50   ~ 0
+SDA
+Text Notes 6900 1950 0    50   ~ 0
+SCK
+Text Notes 6900 2050 0    50   ~ 0
++5V IN
+Text Notes 6900 2150 0    50   ~ 0
+GND
+Text Notes 6900 2250 0    50   ~ 0
+GND
+Text Notes 6900 2350 0    50   ~ 0
++5V OUT
+Text Notes 6900 2450 0    50   ~ 0
++3V OUT
+Text Notes 6900 2550 0    50   ~ 0
+RESET
+$Comp
+L power:GNDD #PWR04
+U 1 1 5F4C9F52
+P 6400 2250
+F 0 "#PWR04" H 6400 2000 50  0001 C CNN
+F 1 "GNDD" V 6400 2000 50  0000 C CNN
+F 2 "" H 6400 2250 50  0001 C CNN
+F 3 "" H 6400 2250 50  0001 C CNN
+	1    6400 2250
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GNDD #PWR01
+U 1 1 5F4CAD68
+P 4400 4800
+F 0 "#PWR01" H 4400 4550 50  0001 C CNN
+F 1 "GNDD" H 4404 4645 50  0000 C CNN
+F 2 "" H 4400 4800 50  0001 C CNN
+F 3 "" H 4400 4800 50  0001 C CNN
+	1    4400 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 4500 4400 4800
+Wire Wire Line
+	6650 2250 6400 2250
+Wire Wire Line
+	6650 2150 6400 2150
+Wire Wire Line
+	6400 2150 6400 2250
+Connection ~ 6400 2250
+$Comp
+L power:+5V #PWR05
+U 1 1 5F4CC182
+P 6400 2350
+F 0 "#PWR05" H 6400 2200 50  0001 C CNN
+F 1 "+5V" V 6415 2478 50  0000 L CNN
+F 2 "" H 6400 2350 50  0001 C CNN
+F 3 "" H 6400 2350 50  0001 C CNN
+	1    6400 2350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+5V #PWR02
+U 1 1 5F4CE067
+P 4200 2300
+F 0 "#PWR02" H 4200 2150 50  0001 C CNN
+F 1 "+5V" H 4215 2473 50  0000 C CNN
+F 2 "" H 4200 2300 50  0001 C CNN
+F 3 "" H 4200 2300 50  0001 C CNN
+	1    4200 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 2350 6400 2350
+Text GLabel 6350 1850 0    50   Input ~ 0
+SDA
+Text GLabel 6350 1950 0    50   Input ~ 0
+SCL
+Text GLabel 4950 3900 2    50   Input ~ 0
+SDA
+Text GLabel 4950 3900 2    50   Input ~ 0
+SDA
+Text GLabel 4950 4000 2    50   Input ~ 0
+SCL
+Wire Wire Line
+	6650 1850 6350 1850
+Wire Wire Line
+	6650 1950 6350 1950
+Wire Wire Line
+	4800 3900 4950 3900
+Wire Wire Line
+	4800 4000 4950 4000
+$Comp
+L power:GNDD #PWR07
+U 1 1 5F4D4005
+P 6550 4650
+F 0 "#PWR07" H 6550 4400 50  0001 C CNN
+F 1 "GNDD" V 6550 4400 50  0000 C CNN
+F 2 "" H 6550 4650 50  0001 C CNN
+F 3 "" H 6550 4650 50  0001 C CNN
+	1    6550 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR06
+U 1 1 5F4D400F
+P 6550 4150
+F 0 "#PWR06" H 6550 4000 50  0001 C CNN
+F 1 "+5V" V 6565 4278 50  0000 L CNN
+F 2 "" H 6550 4150 50  0001 C CNN
+F 3 "" H 6550 4150 50  0001 C CNN
+	1    6550 4150
+	1    0    0    -1  
+$EndComp
+Text GLabel 6450 4300 0    50   Input ~ 0
+SONIC_TRIG
+Text GLabel 6450 4400 0    50   Input ~ 0
+SONIC_ECHO
+Text GLabel 3650 3700 0    50   Input ~ 0
+SONIC_TRIG
+Text GLabel 3650 3600 0    50   Input ~ 0
+SONIC_ECHO
+Wire Wire Line
+	3800 3600 3650 3600
+Wire Wire Line
+	3800 3700 3650 3700
+Wire Wire Line
+	6650 4400 6450 4400
+Wire Wire Line
+	6450 4300 6650 4300
+Text Notes 6950 3800 0    50   ~ 0
+SIGNAL
+Text Notes 6950 3700 0    50   ~ 0
+VCC
+Text Notes 6950 3600 0    50   ~ 0
+GND
+$Comp
+L power:GNDD #PWR03
+U 1 1 5F4DC68D
+P 6350 3600
+F 0 "#PWR03" H 6350 3350 50  0001 C CNN
+F 1 "GNDD" V 6350 3350 50  0000 C CNN
+F 2 "" H 6350 3600 50  0001 C CNN
+F 3 "" H 6350 3600 50  0001 C CNN
+	1    6350 3600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4800 3700 6650 3700
+Wire Wire Line
+	4800 3800 6650 3800
+Wire Wire Line
+	6350 3600 6650 3600
+Wire Wire Line
+	6650 4500 6550 4500
+Wire Wire Line
+	6550 4500 6550 4650
+Wire Wire Line
+	6550 4200 6550 4150
+Wire Wire Line
+	6550 4200 6650 4200
+Wire Wire Line
+	4200 2500 4200 2300
+$EndSCHEMATC

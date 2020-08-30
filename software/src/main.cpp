@@ -1,32 +1,70 @@
-#include "I2c.h"
-#include "VirtualRegs.h"
-#include "printf.h"
 #include <Arduino.h>
 #include <Wire.h>
+#include "common.h"
+#include "registers.hpp"
+#include "printf.h"
+#include "ArduinoLog.h"
 #define BUILTIN_LED 13
-#define I2C_ADDRESS 0x2b
-#define REGS_NUM 8
 
-int sensorPin = A3;  // select the input pin
+
 int sensorValue = 0; // variable to store the value coming from the sensor
 
-I2C i2c;
-void i2c_reqEv() { I2C::requestEvent(i2c); }
-void i2c_rcvEv(int howMany) { I2C::receiveEvent(i2c); }
-
-void setup() {
-    i2c.Init(I2C_ADDRESS, 4, (void *)i2c_reqEv, (void *)i2c_rcvEv);
-    pinMode(BUILTIN_LED, OUTPUT); // Initialize the BUILTIN_LED pin as an output
-    pinMode(A2, OUTPUT);          // Initialize the BUILTIN_LED pin as an output
-    digitalWrite(A2, HIGH);       // Initialize the BUILTIN_LED pin as an output
-    Serial.begin(9600);
-    printf_init();
+//handling read from master
+void i2c_reqEv()
+{
+    uint8_t val = regs.GetReg();
+    Log.verbose("Read: val - 0x%x\n", val);
+    Wire.write(val);
 }
 
-void loop() {
-    int val = analogRead(sensorPin);
-    i2c.Set(2,(uint8_t)(val>>0)&0xFF);
-    i2c.Set(3,(uint8_t)(val>>8)&0xFF);
+// handling write or read from master
+void i2c_rcvEv(int howMany)
+{
+    uint32_t reg_num = (uint32_t)Wire.read();
+    uint32_t val = (uint32_t)Wire.read();
+    if (val == 0xff) { // handling read
+        Log.verbose("Read: from 0x%x\n", reg_num);
+        regs.SelectReg(reg_num);
+    } else { // handling write
+        Log.verbose("Write: 0x%x to 0x%x\n", val, reg_num);
+        regs.Write(reg_num, val);
+    }
+
+    if (Wire.available()) { // if extra data
+        Log.warning("Unexpected extra data\n");
+        Wire.flush();
+    }
+}
+
+
+
+void setup()
+{
+    Serial.begin(9600);
+    // printf_init();
+    Log.begin(LOG_LEVEL, &Serial);
+    printf("hello");
+    Serial.println("hello");
+
+    Wire.begin(DEVICE_I2C_ADDRESS);
+    Wire.onRequest((void (*)())i2c_reqEv);    // register event
+    Wire.onReceive((void (*)(int))i2c_rcvEv); // register event
+
+    pinMode(PIN_LED, OUTPUT); // Initialize the BUILTIN_LED pin as an output
+
+    /* ??? */
+    pinMode(A2, OUTPUT);          // Initialize the BUILTIN_LED pin as an output
+    digitalWrite(A2, HIGH);       // Initialize the BUILTIN_LED pin as an output
+    /* ??? */
+
+    Log.notice("Init complete");
+}
+
+void loop()
+{
+    int val = analogRead(PIN_SENSOR_PHOTORES);
+    REGW(REG_LIGHT_LO, ((uint8_t)(val >> 0) & 0xFF));
+    REGW(REG_LIGHT_HI, ((uint8_t)(val >> 8) & 0xFF));
     // i2c.SelectReg(0);
     // i2c.SetRegAndNext((uint8_t)(val>>0)&0xFF);
     // i2c.SetRegAndNext((uint8_t)(val>>8)&0xFF);
@@ -34,7 +72,6 @@ void loop() {
         digitalWrite(BUILTIN_LED, HIGH); //led off
     }
     digitalWrite(BUILTIN_LED, LOW); //led on - defaults
-    i2c.Print();
     _delay_ms(10);
 
 }
