@@ -1,3 +1,6 @@
 [submodule "software/lib/SharedVirtualRegisters"]
 	path = software/lib/SharedVirtualRegisters
 	url = git@github.com:an-dr/SharedVirtualRegisters.git
+[submodule "schematic/platform/zakhar_kicadlib"]
+	path = schematic/platform/zakhar_kicadlib
+	url = git@github.com:an-dr/zakhar_kicadlib.git
