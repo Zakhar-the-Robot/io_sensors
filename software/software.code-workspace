@@ -1,0 +1,185 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.html": "html",
+			"*.inc": "innopascal",
+			"*.log": "log",
+			"*.rst": "restructuredtext",
+			"main.h": "c",
+			"i2c.h": "c",
+			"cstdio": "cpp",
+			"cstdint": "cpp",
+			"mutex": "cpp",
+			"sharedvirtualregisters.h": "c",
+			"array": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"vector": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp"
+		},
+		"clangd.arguments": [
+			"--compile-commands-dir=build",
+			"--suggest-missing-includes"
+		],
+		"cortex-debug.armToolchainPath": "${env:ARM_TOOLCHAIN_PATH}/bin",
+		"C_Cpp.default.includePath": [
+			"${env:ARM_TOOLCHAIN_PATH}/arm-none-eabi/include",
+			"${env:ARM_TOOLCHAIN_PATH}/arm-none-eabi/include/c++/9.3.1",
+			"App/include",
+			"Core/Inc",
+			"Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+			"Drivers/CMSIS/Include",
+			"Drivers/STM32F4xx_HAL_Driver/Inc",
+			"Drivers/STM32F4xx_HAL_Driver/Inc/Legacy",
+			"Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2",
+			"Middlewares/Third_Party/FreeRTOS/Source/include",
+			"Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F",
+			"Libraries/log.cx/src"
+		],
+		"C_Cpp.default.defines": [
+			"STM32F411xE",
+			"USE_HAL_DRIVER",
+			"SVR_CFG_OS=SVR_OS_FREERTOS"
+		],
+		"C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+		"[c]": {
+			"editor.defaultFormatter": "ms-vscode.cpptools"
+		},
+		"[cpp]": {
+			"editor.defaultFormatter": "ms-vscode.cpptools"
+		},
+	},
+	"launch": {
+		"configurations": [
+			{
+				"showDevDebugOutput": true,
+				"cwd": "${workspaceRoot}",
+				"executable": "./build/software.elf",
+				"name": "Debug",
+				"request": "launch",
+				"type": "cortex-debug",
+				"servertype": "openocd",
+				"preLaunchTask": "Build",
+				"device": "stlink",
+				"configFiles": [
+					"${workspaceRoot}/openocd.cfg"
+				]
+			}
+		],
+		"compounds": []
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Build",
+				"type": "process",
+				"command": "make",
+				"args": [
+					"-j"
+				],
+				"options": {
+					"cwd": "${workspaceRoot}"
+				},
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				},
+				"problemMatcher": [
+					"$gcc"
+				],
+				"dependsOn": [
+					"Build compile_commands.json"
+				]
+			},
+			{
+				"label": "Kill OpenOCD",
+				"type": "process",
+				"command": "Taskkill",
+				"args": [
+					"/IM",
+					"openocd.exe",
+					"/F"
+				],
+				"problemMatcher": [],
+			},
+			{
+				"label": "Kill Serial",
+				"type": "process",
+				"command": "Taskkill",
+				"args": [
+					"/IM",
+					"plink.exe",
+					"/F"
+				],
+				"problemMatcher": []
+			},
+			{
+				"label": "Build compile_commands.json",
+				"type": "process",
+				"command": "make",
+				"args": [
+					"commands"
+				],
+				"problemMatcher": []
+			},
+			{
+				"label": "Serial",
+				"type": "process",
+				"command": "plink",
+				"args": [
+					"-serial",
+					"COM13",
+					"-sercfg",
+					"115200,8,1,N,N"
+				],
+				"problemMatcher": []
+			},
+			{
+				"label": "Clean",
+				"type": "process",
+				"command": "make",
+				"args": [
+					"clean"
+				],
+				"options": {
+					"cwd": "${workspaceRoot}"
+				},
+				"problemMatcher": [
+					"$gcc"
+				]
+			},
+			{
+				"label": "Flash",
+				"type": "process",
+				"command": "make",
+				"args": [
+					"flash"
+				],
+				"options": {
+					"cwd": "${workspaceRoot}"
+				},
+				"presentation": {
+					"echo": true,
+					"reveal": "silent",
+					"focus": false,
+					"panel": "shared",
+					"showReuseMessage": false,
+					"clear": false
+				},
+				"problemMatcher": [
+					"$gcc"
+				],
+				"dependsOn": [
+					"Build compile_commands.json"
+				]
+			}
+		]
+	}
+}

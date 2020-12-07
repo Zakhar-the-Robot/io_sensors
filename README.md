@@ -13,6 +13,10 @@ Sensors list:
 
 <img src="assets/schematic/platform.svg" alt="platform_schematic" width="800">
 
+## Interfaces
+
+The I2C interface is implemented according the [ZakharI2C standard](https://github.com/an-dr/zakhar/blob/master/docs/i2c.md)
+
 ## Copyrights
 
 Copyright (c) 2020 Andrei Gramakov. All rights reserved.
