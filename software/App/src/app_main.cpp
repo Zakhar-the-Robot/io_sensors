@@ -24,7 +24,7 @@
 #include "svr_types.h"
 #include "task.h"
 #include "usart.h"
-
+#include "portable.h"
 
 void test_task(void *params) {
     while (1) {
@@ -54,11 +54,17 @@ void app_main() {
     // log_set_level(LOG_DEBUG);
 
     xTaskCreate(vTaskPhotoresistor, "vTaskPhotoresistor", 1024, NULL, 5, NULL);
-    xTaskCreate(vTaskDistance, "vTaskDistance", 1024, NULL, 5, NULL);
+    xTaskCreate(vTaskDistance, "vTaskDistance", 2048, NULL, 5, NULL);
 
     while (1) {
-        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: 0x%x\tLIGHT: 0x%x 0x%x",
-                  regs[0], regs[1], regs[2], regs[3], regs[4]);
+        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x\t",
+                  regs[REG_CMD],
+                  regs[REG_MODE],
+                  regs[REG_DIST_L],
+                  regs[REG_DIST_C],
+                  regs[REG_DIST_R],
+                  regs[REG_LIGHT_HI],
+                  regs[REG_LIGHT_LO]);
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // PORTA, Pin PA5
         vTaskDelay(pdMS_TO_TICKS(100));
     }
