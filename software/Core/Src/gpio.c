@@ -49,10 +49,13 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_GREEN_NUCLEO_D13_GPIO_Port, LED_GREEN_NUCLEO_D13_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_GREEN_D13_GPIO_Port, LED_GREEN_D13_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SONIC_TRIG_NUCLEO_D12_GPIO_Port, SONIC_TRIG_NUCLEO_D12_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, SON_TRIG_R_D11_Pin|SON_TRIG_C_D7_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SON_TRIG_L_D5_GPIO_Port, SON_TRIG_L_D5_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = BUTTON_BLUE_Pin;
@@ -60,18 +63,25 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BUTTON_BLUE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PAPin PAPin */
-  GPIO_InitStruct.Pin = LED_GREEN_NUCLEO_D13_Pin|SONIC_TRIG_NUCLEO_D12_Pin;
+  /*Configure GPIO pins : PAPin PAPin PAPin */
+  GPIO_InitStruct.Pin = LED_GREEN_D13_Pin|SON_TRIG_R_D11_Pin|SON_TRIG_C_D7_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = SONIC_ECHO_NUCLEO_D11_Pin;
+  /*Configure GPIO pins : PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = SON_ECHO_C_D6_Pin|SON_ECHO_L_D4_Pin|SON_ECHO_R_D10_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(SONIC_ECHO_NUCLEO_D11_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = SON_TRIG_L_D5_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SON_TRIG_L_D5_GPIO_Port, &GPIO_InitStruct);
 
 }
 

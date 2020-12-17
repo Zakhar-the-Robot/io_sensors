@@ -19,11 +19,11 @@ uint8_t receiveBuffer[2];
 
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *I2cHandle) {
     SVR_Set(&registers, receiveBuffer[0], receiveBuffer[1], true, pdMS_TO_TICKS(1000));
-    log_debug("! Write to 0x%x: 0x%x", receiveBuffer[0], receiveBuffer[1]);
+    // log_debug("! Write to 0x%x: 0x%x", receiveBuffer[0], receiveBuffer[1]);
 }
 
 void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *I2cHandle) {
-    log_debug("! Read from 0x%x: 0x%x", receiveBuffer[0], receiveBuffer[1]);
+    // log_debug("! Read from 0x%x: 0x%x", receiveBuffer[0], receiveBuffer[1]);
 }
 
 void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c) {
@@ -32,14 +32,14 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c) {
 
 void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCode) {
 
-    log_warn("! Address requested");
+    // log_warn("! Address requested");
     if (TransferDirection == I2C_DIRECTION_TRANSMIT) {
-        log_warn("ExtMaster -> This device");
+        // log_warn("ExtMaster -> This device");
         if (HAL_I2C_Slave_Sequential_Receive_IT(hi2c, receiveBuffer, 2, I2C_LAST_FRAME) != HAL_OK) {
             log_error("I2C receive error");
         }
     } else {  // I2C_DIRECTION_RECEIVE
-        log_warn("ExtMaster <- This device");
+        // log_warn("ExtMaster <- This device");
         if (HAL_I2C_Slave_Sequential_Receive_IT(hi2c, receiveBuffer, 1, I2C_LAST_FRAME) != HAL_OK) {
             log_error("I2C receive error");
         }

@@ -67,6 +67,7 @@
 				"servertype": "openocd",
 				"preLaunchTask": "Build",
 				"device": "stlink",
+				"svdFile": "${workspaceRoot}/STM32F411.svd",
 				"configFiles": [
 					"${workspaceRoot}/openocd.cfg"
 				]
