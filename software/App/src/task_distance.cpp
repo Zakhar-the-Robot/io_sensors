@@ -23,7 +23,7 @@
 #include "tim.h"
 
 #define CFG_POLL_FREQ_HZ 10
-#define MAX_DISTANCE_CM 101
+#define MAX_DISTANCE_CM 200
 
 
 HCSR04dev_t sonar_l = {
@@ -53,23 +53,23 @@ uint32_t hcsr04_millis(void) {
 
 
 void vTaskDistance(void *params) {
-    uint32_t d;
+    int32_t dl,dc,dr;
     HAL_TIM_Base_Start(&htim2);
     while (1) {
 
-        d = hcsr04_getdistance_cm(&sonar_l, HCSR04_MODE_MEDIAN);
-        if (d) {
-            SVR_Set(&registers, REG_DIST_L, d, false, pdMS_TO_TICKS(1000));
+        dl = hcsr04_getdistance_cm(&sonar_l, HCSR04_MODE_MEDIAN);
+        if (dl>=0) {
+            SVR_Set(&registers, REG_DIST_L, dl, false, pdMS_TO_TICKS(1000));
         }
 
-        d = hcsr04_getdistance_cm(&sonar_c, HCSR04_MODE_MEDIAN);
-        if (d) {
-            SVR_Set(&registers, REG_DIST_C, d, false, pdMS_TO_TICKS(1000));
+        dc = hcsr04_getdistance_cm(&sonar_c, HCSR04_MODE_MEDIAN);
+        if (dc>=0) {
+            SVR_Set(&registers, REG_DIST_C, dc, false, pdMS_TO_TICKS(1000));
         }
 
-        d = hcsr04_getdistance_cm(&sonar_r, HCSR04_MODE_MEDIAN);
-        if (d) {
-            SVR_Set(&registers, REG_DIST_R, d, false, pdMS_TO_TICKS(1000));
+        dr = hcsr04_getdistance_cm(&sonar_r, HCSR04_MODE_MEDIAN);
+        if (dr>=0) {
+            SVR_Set(&registers, REG_DIST_R, dr, false, pdMS_TO_TICKS(1000));
         }
 
         vTaskDelay(pdMS_TO_TICKS(1000 / CFG_POLL_FREQ_HZ));

@@ -36,7 +36,7 @@ typedef enum {
 
 
 uint32_t hcsr04_millis(void); /* not implemented */
-uint32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode);
+int32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode);
 
 
 #ifdef __cplusplus

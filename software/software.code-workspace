@@ -21,7 +21,8 @@
 			"string_view": "cpp",
 			"vector": "cpp",
 			"xstring": "cpp",
-			"xutility": "cpp"
+			"xutility": "cpp",
+			"initializer_list": "c"
 		},
 		"clangd.arguments": [
 			"--compile-commands-dir=build",

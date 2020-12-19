@@ -11,6 +11,7 @@
 // *************************************************************************
 
 #include "hc-sr04.h"
+#include <stdio.h>
 
 #define SOUND_SPEED_M_PER_S 343
 #define SOUND_SPEED_M_PER_MS 0.343
@@ -20,6 +21,11 @@
 #define US_TO_CM(US) (US * SOUND_SPEED_CM_PER_US / 2)
 
 
+#define ERROR_GENERIC (-1)
+#define ERROR_TIMEOUT (-2)
+#define ERROR_WRONG_STATE (-3)
+
+
 static void hcsr04_delay_us(uint32_t us) {
     uint32_t start = hcsr04_millis();
     while (hcsr04_millis() - start < us)
@@ -27,7 +33,7 @@ static void hcsr04_delay_us(uint32_t us) {
 }
 
 
-uint32_t hcsr04_getpulsedelay_ms(HCSR04dev_t *dev) {
+static int32_t hcsr04_getpulsedelay_us(HCSR04dev_t *dev) {
     uint32_t start, end;
     HAL_GPIO_WritePin(dev->trig_port, dev->trig_pin, GPIO_PIN_RESET);  // pull the TRIG pin low
     hcsr04_delay_us(2);                                                // wait for 2 us
@@ -38,25 +44,36 @@ uint32_t hcsr04_getpulsedelay_ms(HCSR04dev_t *dev) {
     start = hcsr04_millis();
     while (!(HAL_GPIO_ReadPin(dev->echo_port, dev->echo_pin))) {
         if (hcsr04_millis() - start > CM_TO_US(dev->max_distance_cm)) {
-            return 0;  // no response
+            return ERROR_WRONG_STATE;  // no response
         }
     }
 
     start = hcsr04_millis();
-    while (HAL_GPIO_ReadPin(dev->echo_port, dev->echo_pin))  // while the pin is high
+    while (HAL_GPIO_ReadPin(dev->echo_port, dev->echo_pin) &&
+           (hcsr04_millis() - start < CM_TO_US(dev->max_distance_cm)))  // while the pin is high
     {
-        if (hcsr04_millis() - start > CM_TO_US(dev->max_distance_cm)) {
-            return CM_TO_US(dev->max_distance_cm);  // no response
-        }
     }
     end = hcsr04_millis();
-    // hcsr04_delay_us(CM_TO_US(dev->max_distance_cm));
+    if ((end - start)> CM_TO_US(dev->max_distance_cm))
+    {
+        return ERROR_TIMEOUT;
+    }
+
     return end - start;
 }
 
 
 static uint32_t hcsr04_getdistance_cm_once(HCSR04dev_t *dev) {
-    return US_TO_CM(hcsr04_getpulsedelay_ms(dev));
+    int32_t res = hcsr04_getpulsedelay_us(dev);
+    if (res >= 0) {
+        return US_TO_CM(res);
+    }
+    switch (res) {
+        case ERROR_TIMEOUT:
+            return dev->max_distance_cm;
+        default:
+            return res;
+    }
 }
 
 
@@ -65,7 +82,7 @@ static uint32_t hcsr04_getdistance_cm_median(HCSR04dev_t *dev) {
     uint32_t middle = 0;
 
     for (int i = 0; i < 3; i++) {
-        data[i] = hcsr04_getpulsedelay_ms(dev);  //save echo signal
+        data[i] = hcsr04_getdistance_cm_once(dev);  //save echo signal
     }
 
     if ((data[0] <= data[1]) && (data[0] <= data[2])) {
@@ -75,16 +92,21 @@ static uint32_t hcsr04_getdistance_cm_median(HCSR04dev_t *dev) {
     } else {
         middle = (data[0] <= data[1]) ? data[0] : data[1];
     }
-    return US_TO_CM(middle);
+    return middle;
 }
 
-uint32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode) {
+int32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode) {
+    int val;
     switch (mode) {
         case HCSR04_MODE_SINGLE:
-            return hcsr04_getdistance_cm_once(dev);
+            val= hcsr04_getdistance_cm_once(dev);
+            break;
         case HCSR04_MODE_MEDIAN:
-            return hcsr04_getdistance_cm_median(dev);
+            val= hcsr04_getdistance_cm_median(dev);
+            break;
         default:
-            return 0;
+            val= 0;
+            break;
     }
+    return val;
 }
