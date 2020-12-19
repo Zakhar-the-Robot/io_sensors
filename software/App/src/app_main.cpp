@@ -45,8 +45,7 @@ void app_main() {
     HAL_UART_Transmit(&huart1, (uint8_t *) "START\r\n", 8, 10);
     log_info("Start");
     RegistersInit();
-    unsigned amount;
-    const SVR_reg_t *regs = SVR_get_regs(&registers, &amount);
+    SVR_reg_t regs[16] = {0};
     // status-
 
     log_debug("I2C ready? %d", HAL_I2C_GetState(&hi2c1));
@@ -57,6 +56,7 @@ void app_main() {
     xTaskCreate(vTaskDistance, "vTaskDistance", 2048, NULL, 5, NULL);
 
     while (1) {
+        SVR_Dump(&registers, 0, registers.regs_ammount, regs, false, 1000);
         log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x\t",
                   regs[REG_CMD],
                   regs[REG_MODE],
@@ -65,7 +65,6 @@ void app_main() {
                   regs[REG_DIST_R],
                   regs[REG_LIGHT_HI],
                   regs[REG_LIGHT_LO]);
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // PORTA, Pin PA5
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
