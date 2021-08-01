@@ -57,7 +57,7 @@ void app_main() {
 
     while (1) {
         SVR_Dump(&registers, 0, registers.regs_ammount, regs, false, 1000);
-        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x\t",
+        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x\n\r",
                   regs[REG_CMD],
                   regs[REG_MODE],
                   regs[REG_DIST_L],
