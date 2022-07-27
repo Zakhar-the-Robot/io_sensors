@@ -1,9 +1,6 @@
 // *************************************************************************
 //
-// Copyright (c) 2020 Andrei Gramakov. All rights reserved.
-//
-// This file is licensed under the terms of the MIT license.
-// For a copy, see: https://opensource.org/licenses/MIT
+// Copyright (c) 2022 Andrei Gramakov. All rights reserved.
 //
 // site:    https://agramakov.me
 // e-mail:  mail@agramakov.me
@@ -12,5 +9,12 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void vTaskPhotoresistor(void *params);
-void vTaskDistance(void *params);
+
+#ifdef __cplusplus
+}
+#endif

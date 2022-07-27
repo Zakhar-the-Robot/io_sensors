@@ -10,8 +10,8 @@
 //
 // *************************************************************************
 
-#include <cstdint>
-#include <cstdio>
+#include <stdint.h>
+#include <stdio.h>
 #include "FreeRTOS.h"
 #include "adc.h"
 #include "log.h"

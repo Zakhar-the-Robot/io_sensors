@@ -10,8 +10,14 @@
 //
 // *************************************************************************
 
-#include "stm32f4xx_hal.h"
+#pragma once
 
-long unsigned log_get_time(void){
-    return HAL_GetTick();
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void vTaskDistance(void *params);
+
+#ifdef __cplusplus
 }
+#endif

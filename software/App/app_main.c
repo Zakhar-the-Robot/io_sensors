@@ -10,10 +10,9 @@
 //
 // *************************************************************************
 
-#include <cstdio>
+#include <stdio.h>
 #include "FreeRTOS.h"
-#include "app_main.hpp"
-#include "app_tasks.hpp"
+#include "app_main.h"
 #include "cmsis_os2.h"
 #include "gpio.h"
 #include "i2c.h"
@@ -25,6 +24,8 @@
 #include "task.h"
 #include "usart.h"
 #include "portable.h"
+#include "sensors/hc-sr04.h"
+#include "sensors/photoresistor.h"
 
 void test_task(void *params) {
     while (1) {
@@ -57,7 +58,7 @@ void app_main() {
 
     while (1) {
         SVR_Dump(&registers, 0, registers.regs_ammount, regs, false, 1000);
-        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x\n\r",
+        log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x",
                   regs[REG_CMD],
                   regs[REG_MODE],
                   regs[REG_DIST_L],

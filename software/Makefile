@@ -36,15 +36,6 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-App/src/i2c_callbacks.c \
-App/src/log_cfg.c \
-App/src/printf.c \
-App/src/registers.c \
-Libraries/SharedVirtualRegisters/src/SharedVirtualRegisters.c \
-Libraries/SharedVirtualRegisters/src/svr_mux_freertos.c \
-Libraries/SharedVirtualRegisters/src/svr_mux_noos.c \
-Drivers/Sensors/src/hc-sr04.c \
-Libraries/log.cx/src/log.c \
 Core/Src/adc.c \
 Core/Src/freertos.c \
 Core/Src/gpio.c \
@@ -87,13 +78,6 @@ Middlewares/Third_Party/FreeRTOS/Source/timers.c \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
-
-
-CXX_SOURCES = \
-App/src/app_main.cpp \
-App/src/task_photoresistor.cpp \
-App/src/task_distance.cpp
-
 
 # ASM sources
 ASM_SOURCES =  \
@@ -169,13 +153,9 @@ C_INCLUDES =  $(STANDARD_INCLUDES) \
 -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
--IDrivers/CMSIS/Include \
--IDrivers/Sensors/include \
--IApp/include \
--ILibraries/log.cx/src \
--ILibraries/SharedVirtualRegisters/include
-
-
+-IDrivers/CMSIS/Include 
+include App/app.mk # application sources
+include Libraries/libraries.mk # libraries sources
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
