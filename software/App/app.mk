@@ -12,6 +12,8 @@
 
 C_SOURCES += \
 App/communication/i2c_callbacks.c \
+App/communication/CANSPI.c \
+App/communication/MCP2515.c \
 App/mics/printf.c \
 App/registers.c \
 App/sensors/hc-sr04.c \

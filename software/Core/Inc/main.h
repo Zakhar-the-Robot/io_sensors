@@ -66,6 +66,8 @@ void Error_Handler(void);
 #define USART_RX_D0_GPIO_Port GPIOA
 #define LED_GREEN_D13_Pin GPIO_PIN_5
 #define LED_GREEN_D13_GPIO_Port GPIOA
+#define CAN_CS_Pin GPIO_PIN_6
+#define CAN_CS_GPIO_Port GPIOA
 #define SON_TRIG_R_D11_Pin GPIO_PIN_7
 #define SON_TRIG_R_D11_GPIO_Port GPIOA
 #define PHOTORES_NUCLEO_A3_Pin GPIO_PIN_0
