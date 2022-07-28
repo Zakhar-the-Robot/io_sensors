@@ -63,20 +63,20 @@ void app_main() {
     
     while (1) {
         SVR_Dump(&registers, 0, registers.regs_ammount, regs, false, 1000);
-        if (CANSPI_Receive(&rxMessage)) {
-            txMessage.frame.idType = rxMessage.frame.idType;
+        // if (CANSPI_Receive(&rxMessage)) {
+            txMessage.frame.idType = 0;
             txMessage.frame.id     = 0x300;
-            txMessage.frame.dlc    = rxMessage.frame.dlc;
-            txMessage.frame.data0++;
-            txMessage.frame.data1 = rxMessage.frame.data1;
-            txMessage.frame.data2 = rxMessage.frame.data2;
-            txMessage.frame.data3 = rxMessage.frame.data3;
-            txMessage.frame.data4 = rxMessage.frame.data4;
-            txMessage.frame.data5 = rxMessage.frame.data5;
-            txMessage.frame.data6 = rxMessage.frame.data6;
-            txMessage.frame.data7 = rxMessage.frame.data7;
+            txMessage.frame.dlc    = 8;
+            txMessage.frame.data0 = 0;
+            txMessage.frame.data1 = 0;
+            txMessage.frame.data2 = 1;
+            txMessage.frame.data3 = 2;
+            txMessage.frame.data4 = 3;
+            txMessage.frame.data5 = 4;
+            txMessage.frame.data6 = 5;
+            txMessage.frame.data7 = 6;
             CANSPI_Transmit(&txMessage);
-        }
+        // }
         log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x",
                   regs[REG_CMD],
                   regs[REG_MODE],

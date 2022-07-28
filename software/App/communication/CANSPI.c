@@ -111,15 +111,16 @@ bool CANSPI_Initialize(void)
   * tbit = 1tq + 5tq + 6tq + 4tq = 16tq
   * 16tq = 2us = 500kbps
   */
+ // https://github.dev/autowp/arduino-mcp2515/blob/master/mcp2515.cpp
   
   /* 00(SJW 1tq) 000000 */  
-  MCP2515_WriteByte(MCP2515_CNF1, 0x00);
+  MCP2515_WriteByte(MCP2515_CNF1, 0x01);
   
   /* 1 1 100(5tq) 101(6tq) */  
-  MCP2515_WriteByte(MCP2515_CNF2, 0xE5);
+  MCP2515_WriteByte(MCP2515_CNF2, 0xB1);
   
   /* 1 0 000 011(4tq) */  
-  MCP2515_WriteByte(MCP2515_CNF3, 0x83);
+  MCP2515_WriteByte(MCP2515_CNF3, 0x85);
   
   /* Normal 모드로 설정 */
   if(!MCP2515_SetNormalMode())
