@@ -191,6 +191,7 @@ LIBDIR =
 LDFLAGS = $(MCU) -specs=nosys.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 include App/app.mk # application sources
+include Drivers/drivers.mk # non-MxCube drivers
 include Libraries/libraries.mk # libraries sources
 
 # default action: build all

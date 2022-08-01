@@ -20,13 +20,13 @@
 
 #define CFG_POLL_FREQ_HZ 10
 
-uint32_t GetLight() {
+static uint32_t GetLight() {
     HAL_ADC_Start(&hadc1);
     HAL_ADC_PollForConversion(&hadc1, 100000);
     return HAL_ADC_GetValue(&hadc1);
 }
 
-void vTaskPhotoresistor(void *params) {
+static void vTaskPhotoresistor(void *params) {
     uint32_t val = 0;
     log_info("Start");
     while (1) {
@@ -34,7 +34,11 @@ void vTaskPhotoresistor(void *params) {
         // log_debug("Light: 0x%x", (int) val);
         SVR_Set(&registers, REG_LIGHT_HI, (val >> 8) & 0xff, false, pdMS_TO_TICKS(1000));
         SVR_Set(&registers, REG_LIGHT_LO, val & 0xff, false, pdMS_TO_TICKS(1000));
-
         vTaskDelay(pdMS_TO_TICKS(1000 / CFG_POLL_FREQ_HZ));
     }
+}
+
+void StartSensorPhotoresistor()
+{
+    xTaskCreate(vTaskPhotoresistor, "vTaskPhotoresistor", 1024, NULL, 5, NULL);
 }

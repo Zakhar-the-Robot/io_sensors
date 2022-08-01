@@ -14,13 +14,13 @@
 #include "FreeRTOS.h"
 #include "app_main.h"
 #include "cmsis_os2.h"
-#include "communication/CANSPI.h"
+#include "communication/qcan.h"
 #include "gpio.h"
 #include "i2c.h"
 #include "log.h"
 #include "portable.h"
 #include "registers.h"
-#include "sensors/hc-sr04.h"
+#include "sensors/obstacles.h"
 #include "sensors/photoresistor.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_def.h"
@@ -28,55 +28,22 @@
 #include "task.h"
 #include "usart.h"
 
-void test_task(void *params) {
-    while (1) {
-        printf("test1\r\n");
-        vTaskDelay(pdMS_TO_TICKS(300));
-    }
-}
-
-void test2_task(void *params) {
-    while (1) {
-        printf("test2\r\n");
-        vTaskDelay(pdMS_TO_TICKS(300));
-    }
-}
-
 
 void app_main() {
     HAL_UART_Transmit(&huart1, (uint8_t *) "START\r\n", 8, 10);
     log_info("Start");
     RegistersInit();
     SVR_reg_t regs[16] = {0};
-    // status-
 
     log_debug("I2C ready? %d", HAL_I2C_GetState(&hi2c1));
     HAL_I2C_EnableListen_IT(&hi2c1);  // https://community.st.com/s/question/0D50X00009sThWGSA0/how-hal-i2c-slave-works
-    // log_set_level(LOG_DEBUG);
 
-    CANSPI_Initialize();
-    xTaskCreate(vTaskPhotoresistor, "vTaskPhotoresistor", 1024, NULL, 5, NULL);
-    xTaskCreate(vTaskDistance, "vTaskDistance", 2048, NULL, 5, NULL);
-    
-    uCAN_MSG txMessage;
-    uCAN_MSG rxMessage;
-    
+    StartSensorPhotoresistor();
+    StartSensorObstacles();
+    StartCommQcan();
+
     while (1) {
         SVR_Dump(&registers, 0, registers.regs_ammount, regs, false, 1000);
-        // if (CANSPI_Receive(&rxMessage)) {
-            txMessage.frame.idType = 0;
-            txMessage.frame.id     = 0x300;
-            txMessage.frame.dlc    = 8;
-            txMessage.frame.data0 = 0;
-            txMessage.frame.data1 = 0;
-            txMessage.frame.data2 = 1;
-            txMessage.frame.data3 = 2;
-            txMessage.frame.data4 = 3;
-            txMessage.frame.data5 = 4;
-            txMessage.frame.data6 = 5;
-            txMessage.frame.data7 = 6;
-            CANSPI_Transmit(&txMessage);
-        // }
         log_debug("    \tCMD: 0x%x\tMODE: 0x%x\tD_cm: %u|%u|%u \tLIGHT: 0x%x 0x%x",
                   regs[REG_CMD],
                   regs[REG_MODE],

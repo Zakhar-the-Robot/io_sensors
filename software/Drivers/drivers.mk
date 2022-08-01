@@ -10,19 +10,12 @@
 #
 # *************************************************************************
 
+
 C_SOURCES += \
-App/communication/i2c_callbacks.c \
-App/communication/qcan.c \
-App/log_cfg.c \
-App/printf.c \
-App/registers.c \
-App/sensors/obstacles.c \
-App/sensors/photoresistor.c \
-App/app_main.c
+Drivers/HC-SR04/hc-sr04.c \
+Drivers/MCP2515/src/CANSPI.c \
+Drivers/MCP2515/src/MCP2515.c
 
 C_INCLUDES += \
--IApp
-
-
-# CXX_SOURCES += \
-
+-IDrivers/MCP2515/include \
+-IDrivers/HC-SR04

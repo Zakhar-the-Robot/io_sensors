@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-void StartSensorPhotoresistor();
+void StartSensorObstacles();
 
 #ifdef __cplusplus
 }

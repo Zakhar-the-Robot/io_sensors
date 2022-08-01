@@ -29,7 +29,9 @@
             "task.h": "c",
             "stm32f4xx_hal.h": "c",
             "app_main.hpp": "c",
-            "app_main.h": "c"
+            "app_main.h": "c",
+            "canspi.h": "c",
+            "registers.h": "c"
         },
 		"clangd.arguments": [
 			"--compile-commands-dir=build",
