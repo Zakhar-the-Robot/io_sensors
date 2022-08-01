@@ -16,7 +16,6 @@
 #include "cmsis_os2.h"
 #include "communication/qcan.h"
 #include "gpio.h"
-#include "i2c.h"
 #include "log.h"
 #include "portable.h"
 #include "registers.h"
@@ -34,9 +33,6 @@ void app_main() {
     log_info("Start");
     RegistersInit();
     SVR_reg_t regs[16] = {0};
-
-    log_debug("I2C ready? %d", HAL_I2C_GetState(&hi2c1));
-    HAL_I2C_EnableListen_IT(&hi2c1);  // https://community.st.com/s/question/0D50X00009sThWGSA0/how-hal-i2c-slave-works
 
     StartSensorPhotoresistor();
     StartSensorObstacles();

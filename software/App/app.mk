@@ -11,7 +11,6 @@
 # *************************************************************************
 
 C_SOURCES += \
-App/communication/i2c_callbacks.c \
 App/communication/qcan.c \
 App/log_cfg.c \
 App/printf.c \

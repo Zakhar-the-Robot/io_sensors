@@ -92,10 +92,6 @@ void Error_Handler(void);
 #define SON_ECHO_L_D4_GPIO_Port GPIOB
 #define SON_ECHO_R_D10_Pin GPIO_PIN_6
 #define SON_ECHO_R_D10_GPIO_Port GPIOB
-#define I2C1_SCL_D15_Pin GPIO_PIN_8
-#define I2C1_SCL_D15_GPIO_Port GPIOB
-#define I2C1_SDA_D14_Pin GPIO_PIN_9
-#define I2C1_SDA_D14_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
