@@ -1,6 +1,3 @@
-[submodule "schematic/platform/zakhar_kicadlib"]
-	path = schematic/platform/zakhar_kicadlib
-	url = https://github.com/an-dr/zakhar_kicadlib.git
 [submodule "software/Libraries/log.cx"]
 	path = software/Libraries/log.cx
 	url = https://github.com/an-dr/log.cx.git
