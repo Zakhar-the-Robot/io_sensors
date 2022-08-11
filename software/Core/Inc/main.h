@@ -29,7 +29,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -67,6 +66,8 @@ void Error_Handler(void);
 #define USART_RX_D0_GPIO_Port GPIOA
 #define LED_GREEN_D13_Pin GPIO_PIN_5
 #define LED_GREEN_D13_GPIO_Port GPIOA
+#define CAN_CS_Pin GPIO_PIN_6
+#define CAN_CS_GPIO_Port GPIOA
 #define SON_TRIG_R_D11_Pin GPIO_PIN_7
 #define SON_TRIG_R_D11_GPIO_Port GPIOA
 #define PHOTORES_NUCLEO_A3_Pin GPIO_PIN_0
@@ -91,10 +92,6 @@ void Error_Handler(void);
 #define SON_ECHO_L_D4_GPIO_Port GPIOB
 #define SON_ECHO_R_D10_Pin GPIO_PIN_6
 #define SON_ECHO_R_D10_GPIO_Port GPIOB
-#define I2C1_SCL_D15_Pin GPIO_PIN_8
-#define I2C1_SCL_D15_GPIO_Port GPIOB
-#define I2C1_SDA_D14_Pin GPIO_PIN_9
-#define I2C1_SDA_D14_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -104,5 +101,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

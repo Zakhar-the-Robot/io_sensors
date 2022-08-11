@@ -20,6 +20,7 @@ fp-info-cache
 *-save.pro
 *-save.kicad_pcb
 _saved_*
+schematic/platform/platform-backups
 
 # Netlists
 *.net
@@ -36,7 +37,6 @@ _saved_*
 *.drl
 
 # Footprint info cache
-fp-info-cache
 
 # Autosave files
 _autosave-*

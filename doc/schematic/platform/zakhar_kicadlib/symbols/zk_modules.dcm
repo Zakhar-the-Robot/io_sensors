@@ -1,0 +1,17 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP HC-SR04
+D Ultrasonic module
+F Osepp
+$ENDCMP
+#
+$CMP HY-SRF05
+D Ultrasonic module
+F Osepp
+$ENDCMP
+#
+$CMP KY-018
+D Photoresistor module, used to measure light intensity. It can determine the presence or absence of light.
+$ENDCMP
+#
+#End Doc Library

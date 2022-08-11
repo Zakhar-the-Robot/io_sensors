@@ -1,3 +1,0 @@
-arduino nano Shield.f3d - Omar Elshamy
-NanoV3 v4.step - Aaron Oropeza
-HC-SR04.STEP - SnapEDA

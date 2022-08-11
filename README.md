@@ -1,22 +1,6 @@
-# Zakhar Sensor Platform
+# io_sensors
 
-Sensors implementation for the Zakhar Project
+[![Main - Page](https://img.shields.io/badge/Project-Zakhar%20the%20Robot-yellow)](https://zakhar-the-robot.github.io/doc/ "See the Project Main Page") [![Main - Page](https://img.shields.io/badge/Sources-Zakhar%20the%20Robot-blue)](https://github.com/Zakhar-the-Robot "See Project Sources on Github")
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![View - Documentation](https://img.shields.io/badge/Documentation-io_sensors-orange)](doc/_index.md "Go to the Documentation")
 
-Part of the [Zakhar: A robotics UX project](https://github.com/an-dr/zakhar)
-
-Sensors list:
-
-- KY-018 photoresistor module
-- HC-SR04 module
-
-## Schematic
-
-<img src="assets/schematic/platform.svg" alt="platform_schematic" width="800">
-
-## Interfaces
-
-The I2C interface is implemented according the [ZakharI2C standard](https://github.com/an-dr/zakhar/blob/master/docs/i2c.md)
-
-## Copyrights
-
-Copyright (c) 2020 Andrei Gramakov. All rights reserved.
+Source code of the Zakhar Sensor Unit.
