@@ -1,9 +1,12 @@
 [submodule "schematic/platform/zakhar_kicadlib"]
 	path = schematic/platform/zakhar_kicadlib
-	url = git@github.com:an-dr/zakhar_kicadlib.git
+	url = https://github.com/an-dr/zakhar_kicadlib.git
 [submodule "software/Libraries/log.cx"]
 	path = software/Libraries/log.cx
-	url = git@github.com:an-dr/log.cx.git
+	url = https://github.com/an-dr/log.cx.git
 [submodule "software/Libraries/SharedVirtualRegisters"]
 	path = software/Libraries/SharedVirtualRegisters
-	url = git@github.com:an-dr/SharedVirtualRegisters.git
+	url = https://github.com/an-dr/SharedVirtualRegisters.git
+[submodule "software/Libraries/lib_stm32cube_canbus"]
+	path = software/Libraries/lib_stm32cube_canbus
+	url = https://github.com/Zakhar-the-Robot/lib_stm32cube_canbus.git

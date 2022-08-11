@@ -7,31 +7,11 @@
 //
 // *************************************************************************
 
+#include "can.h"
 #include "qcan.h"
-#include "CANSPI.h"
 #include "FreeRTOS.h"
 #include "registers.h"
 #include "task.h"
-
-
-static void taskPresence() {
-    uCAN_MSG txMessage;
-    txMessage.frame.idType = 0;
-    txMessage.frame.id     = 0x400;
-    txMessage.frame.dlc    = 3;
-    txMessage.frame.data0  = 0;
-    txMessage.frame.data1  = 2;
-    txMessage.frame.data2  = 0;
-    txMessage.frame.data3  = 0;
-    txMessage.frame.data4  = 0;
-    txMessage.frame.data5  = 0;
-    txMessage.frame.data6  = 0;
-    txMessage.frame.data7  = 0;
-    while (1) {
-        CANSPI_Transmit(&txMessage);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
 
 static void taskData() {
     SVR_reg_t regs[16] = {0};
@@ -51,13 +31,12 @@ static void taskData() {
         txMessage.frame.data5 = 0;
         txMessage.frame.data6 = 0;
         txMessage.frame.data7 = 0;
-        CANSPI_Transmit(&txMessage);
+        qcan_transmit(&txMessage);
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
 
 void StartCommQcan() {
-    CANSPI_Initialize();
-    xTaskCreate(taskPresence, "qCanPresence", 1024, NULL, 5, NULL);
+    qcan_start(4);
     xTaskCreate(taskData, "qCanData", 1024, NULL, 5, NULL);
 }

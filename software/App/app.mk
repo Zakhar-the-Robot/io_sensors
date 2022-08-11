@@ -11,7 +11,7 @@
 # *************************************************************************
 
 C_SOURCES += \
-App/communication/qcan.c \
+App/communication/can.c \
 App/log_cfg.c \
 App/printf.c \
 App/registers.c \

@@ -14,7 +14,7 @@
 #include "FreeRTOS.h"
 #include "app_main.h"
 #include "cmsis_os2.h"
-#include "communication/qcan.h"
+#include "communication/can.h"
 #include "gpio.h"
 #include "log.h"
 #include "portable.h"

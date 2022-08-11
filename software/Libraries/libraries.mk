@@ -10,6 +10,8 @@
 #
 # *************************************************************************
 
+include Libraries/lib_stm32cube_canbus/lib_stm32cube_canbus.mk
+
 C_SOURCES += \
 Libraries/SharedVirtualRegisters/src/SharedVirtualRegisters.c \
 Libraries/SharedVirtualRegisters/src/svr_mux_freertos.c \
