@@ -34,7 +34,8 @@
             "registers.h": "c",
             "spi_wrappers.h": "c",
             "mcp2515.h": "c",
-            "freertos.h": "c"
+            "freertos.h": "c",
+            "can.h": "c"
         },
 		"clangd.arguments": [
 			"--compile-commands-dir=build",

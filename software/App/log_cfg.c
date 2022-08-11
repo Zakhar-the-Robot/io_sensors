@@ -9,6 +9,4 @@
 
 #include "stm32f4xx_hal.h"
 
-long unsigned log_get_time(void) {
-    return HAL_GetTick();
-}
+long unsigned log_get_time(void) { return HAL_GetTick(); }

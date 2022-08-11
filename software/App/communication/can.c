@@ -7,14 +7,18 @@
 //
 // *************************************************************************
 
-#include "can.h"
-#include "qcan.h"
 #include "FreeRTOS.h"
-#include "registers.h"
 #include "task.h"
 
-static void taskData() {
-    SVR_reg_t regs[16] = {0};
+#include "qcan.h"
+#include "registers.h"
+
+#include "can.h"
+
+
+static void taskData()
+{
+    SVR_reg_t regs[16] = { 0 };
 
     uCAN_MSG txMessage;
     txMessage.frame.idType = 0;
@@ -36,7 +40,8 @@ static void taskData() {
     }
 }
 
-void StartCommQcan() {
+void StartCommQcan()
+{
     qcan_start(4);
     xTaskCreate(taskData, "qCanData", 1024, NULL, 5, NULL);
 }

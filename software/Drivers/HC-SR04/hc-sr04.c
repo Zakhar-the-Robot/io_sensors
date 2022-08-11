@@ -12,8 +12,9 @@
 
 #include <stdio.h>
 #include <stm32f4xx.h>
-#include "hc-sr04.h"
 #include "tim.h"
+
+#include "hc-sr04.h"
 
 
 #define SOUND_SPEED_M_PER_S 343
@@ -24,18 +25,21 @@
 #define US_TO_CM(US) (US * SOUND_SPEED_CM_PER_US / 2)
 
 
-static uint32_t hcsr04_millis(void) {
+static uint32_t hcsr04_millis(void)
+{
     return __HAL_TIM_GET_COUNTER(&htim2);  // TODO replace this hardcode with a pointer
 }
 
-static void hcsr04_delay_us(uint32_t us) {
+static void hcsr04_delay_us(uint32_t us)
+{
     uint32_t start = hcsr04_millis();
     while (hcsr04_millis() - start < us)
         ;  // wait for the counter to reach the us input in the parameter
 }
 
 
-static int32_t hcsr04_getpulsedelay_us(HCSR04dev_t *dev) {
+static int32_t hcsr04_getpulsedelay_us(HCSR04dev_t *dev)
+{
     uint32_t start, end;
     HAL_GPIO_WritePin(dev->trig_port, dev->trig_pin, GPIO_PIN_RESET);  // pull the TRIG pin low
     hcsr04_delay_us(2);                                                // wait for 2 us
@@ -53,23 +57,18 @@ static int32_t hcsr04_getpulsedelay_us(HCSR04dev_t *dev) {
     start = hcsr04_millis();
     while (HAL_GPIO_ReadPin(dev->echo_port, dev->echo_pin) &&
            (hcsr04_millis() - start < CM_TO_US(dev->max_distance_cm)))  // while the pin is high
-    {
-    }
+    {}
     end = hcsr04_millis();
-    if ((end - start)> CM_TO_US(dev->max_distance_cm))
-    {
-        return ERROR_TIMEOUT;
-    }
+    if ((end - start) > CM_TO_US(dev->max_distance_cm)) { return ERROR_TIMEOUT; }
 
     return end - start;
 }
 
 
-static uint32_t hcsr04_getdistance_cm_once(HCSR04dev_t *dev) {
+static uint32_t hcsr04_getdistance_cm_once(HCSR04dev_t *dev)
+{
     int32_t res = hcsr04_getpulsedelay_us(dev);
-    if (res >= 0) {
-        return US_TO_CM(res);
-    }
+    if (res >= 0) { return US_TO_CM(res); }
     switch (res) {
         case ERROR_TIMEOUT:
             return dev->max_distance_cm;
@@ -79,7 +78,8 @@ static uint32_t hcsr04_getdistance_cm_once(HCSR04dev_t *dev) {
 }
 
 
-static uint32_t hcsr04_getdistance_cm_median(HCSR04dev_t *dev) {
+static uint32_t hcsr04_getdistance_cm_median(HCSR04dev_t *dev)
+{
     uint32_t data[3];
     uint32_t middle = 0;
 
@@ -97,20 +97,19 @@ static uint32_t hcsr04_getdistance_cm_median(HCSR04dev_t *dev) {
     return middle;
 }
 
-int32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode) {
+int32_t hcsr04_getdistance_cm(HCSR04dev_t *dev, HCSR04_mode_t mode)
+{
     int val;
     switch (mode) {
         case HCSR04_MODE_SINGLE:
-            val= hcsr04_getdistance_cm_once(dev);
+            val = hcsr04_getdistance_cm_once(dev);
             break;
         case HCSR04_MODE_MEDIAN:
-            val= hcsr04_getdistance_cm_median(dev);
+            val = hcsr04_getdistance_cm_median(dev);
             break;
         default:
-            val= 0;
+            val = 0;
             break;
     }
     return val;
 }
-
-

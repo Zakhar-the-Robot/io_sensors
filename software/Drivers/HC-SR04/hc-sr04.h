@@ -30,10 +30,10 @@ extern "C" {
 
 typedef struct {
     GPIO_TypeDef *trig_port;
-    uint16_t trig_pin;
+    uint16_t      trig_pin;
     GPIO_TypeDef *echo_port;
-    uint16_t echo_pin;
-    uint32_t max_distance_cm;
+    uint16_t      echo_pin;
+    uint32_t      max_distance_cm;
 } HCSR04dev_t;
 
 

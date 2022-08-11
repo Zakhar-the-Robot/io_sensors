@@ -14,19 +14,25 @@
 #include <stdio.h>
 #include "FreeRTOS.h"
 #include "adc.h"
+#include "task.h"
+
 #include "log.h"
 #include "registers.h"
-#include "task.h"
+
+#include "photoresistor.h"
+
 
 #define CFG_POLL_FREQ_HZ 10
 
-static uint32_t GetLight() {
+static uint32_t GetLight()
+{
     HAL_ADC_Start(&hadc1);
     HAL_ADC_PollForConversion(&hadc1, 100000);
     return HAL_ADC_GetValue(&hadc1);
 }
 
-static void vTaskPhotoresistor(void *params) {
+static void vTaskPhotoresistor(void *params)
+{
     uint32_t val = 0;
     log_info("Start");
     while (1) {
