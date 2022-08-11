@@ -31,7 +31,9 @@
             "app_main.hpp": "c",
             "app_main.h": "c",
             "canspi.h": "c",
-            "registers.h": "c"
+            "registers.h": "c",
+            "spi_wrappers.h": "c",
+            "mcp2515.h": "c"
         },
 		"clangd.arguments": [
 			"--compile-commands-dir=build",

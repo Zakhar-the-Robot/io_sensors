@@ -10,10 +10,13 @@
 #
 # *************************************************************************
 
-include Drivers/MCP2515/mcp2515.mk
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+mkfile_dir := $(dir $(mkfile_path))
 
 C_SOURCES += \
-Drivers/HC-SR04/hc-sr04.c
+${mkfile_dir}/src/spi_wrappers.c \
+${mkfile_dir}/src/CANSPI.c \
+${mkfile_dir}/src/MCP2515.c
 
-C_INCLUDES += \
--IDrivers/HC-SR04
+C_INCLUDES += -I${mkfile_dir}/include
+
