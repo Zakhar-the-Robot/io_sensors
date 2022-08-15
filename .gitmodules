@@ -7,3 +7,6 @@
 [submodule "software/Libraries/lib_stm32cube_canbus"]
 	path = software/Libraries/lib_stm32cube_canbus
 	url = https://github.com/Zakhar-the-Robot/lib_stm32cube_canbus.git
+[submodule "schematic/lib_kicad"]
+	path = schematic/lib_kicad
+	url = https://github.com/Zakhar-the-Robot/lib_kicad

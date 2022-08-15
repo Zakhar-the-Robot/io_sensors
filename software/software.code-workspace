@@ -2,7 +2,11 @@
 	"folders": [
 		{
 			"path": "."
-		}
+		},
+        {
+            "path": "..",
+            "name": "Repository"
+        }
 	],
 	"settings": {
 		"files.associations": {

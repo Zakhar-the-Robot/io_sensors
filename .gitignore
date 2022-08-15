@@ -11,16 +11,17 @@ fp-info-cache
 # CPL data generated from PCB
 *.pos
 
-# KiCAD backup
+# KiCAD files
 *.bak
 *.bck
 *.kicad_pcb-bak
+*.kicad_sch-bak
 *.kicad_prl
 *.sch-bak
 *-save.pro
 *-save.kicad_pcb
 _saved_*
-schematic/platform/platform-backups
+schematic/io_sensors/io_sensors-backups
 
 # Netlists
 *.net
