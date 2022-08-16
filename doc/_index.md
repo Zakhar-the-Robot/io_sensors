@@ -1,10 +1,14 @@
-# Zakhar Sensor Platform
+---
+title: "IO: Sensor Unit"
+---
 
-Sensors implementation for the Zakhar Project
+# IO: Sensor Unit
 
-Part of the [Zakhar: A robotics UX project](https://github.com/an-dr/zakhar)
+[![view - Documentation](https://img.shields.io/badge/Source%20Code-GitHub-blue)](https://github.com/Zakhar-the-Robot/io_sensors "Go to Repository")
 
-Components:
+A module collecting data from sensors. Periodically sends the data to the network.
+
+The unit consists of:
 
 - 1x - Nucleo F411RE
 - 3x - HC-SR04 module
@@ -15,15 +19,30 @@ Components:
 
 <img src="index_schematic.svg" alt="platform_schematic" width="1000">
 
+## Communication
+
+**CAN bus**
+
+- Protocol: [**qCAN**](https://zakhar-the-robot.github.io/doc/docs/communication-protocols/canbus/) **0.2.0**, standard CAN frame
+- Address: **0x4**
+
+**Serial**
+
+- Speed: **115200** BPS
+
 ## Data Message
 
-- Message Type: 0x1 (Data 0x1)
-- Device ID: 0x4
+The unit sends a data message with sensor data every 100 ms.
+
+- Message Type: **0x1** (Data Message)
 
 Message content:
 
-- DATA0: Distance Left in cm (0-200)
-- DATA1: Distance Center in cm (0-200)
-- DATA2: Distance Right in cm (0-200)
-- DATA3: Light sensor value (High 4 bits)
-- DATA4: Light sensor value (Low 8 bits)
+|Field   |Value                                |
+|--------|-------------------------------------|
+| MSG ID |0x401                                |
+| DATA0  |HC-SR04 Left: distance - 0..200 cm   |
+| DATA1  |HC-SR04 Center: distance - 0..200 cm |
+| DATA2  |HC-SR04 Right: distance - 0..200 cm  |
+| DATA3  |KY-018: Light value - High 4 bits    |
+| DATA4  |KY-018: Light value - Low 8 bits     |
